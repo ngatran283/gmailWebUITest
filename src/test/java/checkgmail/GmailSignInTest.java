@@ -2,6 +2,7 @@ package checkgmail;
 
 import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,119 +12,72 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import Utils.WebUtils;
+import pageObject.EmailHomepage;
+import pageObject.SignInPage;
+
 public class GmailSignInTest {
 	WebDriver driver;
 
 	@Test
 	public void gmailLoginShouldBeSuccessful() {
-		// 1. Go to gmail website
 		System.setProperty("webdriver.gecko.driver", "D:\\software\\selenium-java-3.0.1\\geckodriver.exe");
 		driver = new FirefoxDriver();
-		driver.navigate().to("https://www.google.com.vn/");
-		WebDriverWait wait = new WebDriverWait(driver, 30);
+		// 1. Go to gmail website
+		SignInPage signInPage = WebUtils.gotoSignInPage(driver);
 		// 2. Click to gmail
-		WebElement gmailLink = driver.findElement(By.linkText("Gmail"));
-		gmailLink.click();
+		signInPage.accessGmailPage(driver);
 		// 3. Input user name
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("identifierId")));
-		WebElement username = driver.findElement(By.id("identifierId"));
-		username.clear();
-		username.sendKeys("ngatran283@gmail.com");
+		signInPage.fillInUsername(driver, "ngatran283@gmail.com");
 		// 4. Click next
-		WebElement nextUser = driver.findElement(By.xpath(".//*[@id='identifierNext']/content/span"));
-		nextUser.click();
+		signInPage.clickNextUser(driver);
 		// 5. Input password
-		wait.until(ExpectedConditions
-				.visibilityOfElementLocated(By.xpath(".//*[@id='password']/div[1]/div/div[1]/input")));
-		WebElement password = driver.findElement(By.xpath(".//*[@id='password']/div[1]/div/div[1]/input"));
-		password.clear();
-		password.sendKeys("goosie283");
+		SignInPage.fillInPassword(driver, "goosie283");
 		// 6. Click passwordNext
-		WebElement nextPass = driver.findElement(By.xpath(".//*[@id='passwordNext']/content/span"));
-		nextPass.click();
-
+		EmailHomepage emailHomepage = signInPage.clickNextPass(driver);
 		// 7. verify Inbox
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("Inbox")));
-		Assert.assertTrue("Sign in successfully", driver.findElement(By.partialLinkText("Inbox")).isDisplayed());
-
+		Assert.assertTrue("Sign in successfully", emailHomepage.isElementExist(driver));
 		// 8.Click profile Button
-		WebElement profileBttn = driver.findElement(By.cssSelector("span[class='gb_7a gbii']"));
-		profileBttn.click();
-		// 9. click sign out button
-		WebElement signoutBttn = driver.findElement(By.id("gb_71"));
-		signoutBttn.click();
-
+		signInPage = emailHomepage.signOut(driver);
 	}
 
 	@Test
 	public void gmailSendAndReceiveTest() throws InterruptedException {
 		// 1. Sign in
-		// 1. Go to gmail website
 		System.setProperty("webdriver.gecko.driver", "D:\\software\\selenium-java-3.0.1\\geckodriver.exe");
 		driver = new FirefoxDriver();
-		driver.navigate().to("https://www.google.com.vn/");
-		WebDriverWait wait = new WebDriverWait(driver, 30);
+		// 1. Go to gmail website
+		SignInPage signInPage = WebUtils.gotoSignInPage(driver);
 		// 2. Click to gmail
-		WebElement gmailLink = driver.findElement(By.linkText("Gmail"));
-		gmailLink.click();
+		signInPage.accessGmailPage(driver);
 		// 3. Input user name
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("identifierId")));
-		WebElement username = driver.findElement(By.id("identifierId"));
-		username.clear();
-		username.sendKeys("ngatran283@gmail.com");
+		signInPage.fillInUsername(driver, "ngatran283@gmail.com");
 		// 4. Click next
-		WebElement nextUser = driver.findElement(By.xpath(".//*[@id='identifierNext']/content/span"));
-		nextUser.click();
+		signInPage.clickNextUser(driver);
 		// 5. Input password
-		wait.until(ExpectedConditions
-				.visibilityOfElementLocated(By.xpath(".//*[@id='password']/div[1]/div/div[1]/input")));
-		WebElement password = driver.findElement(By.xpath(".//*[@id='password']/div[1]/div/div[1]/input"));
-		password.clear();
-		password.sendKeys("goosie283");
+		SignInPage.fillInPassword(driver, "goosie283");
 		// 6. Click passwordNext
-		WebElement nextPass = driver.findElement(By.xpath(".//*[@id='passwordNext']/content/span"));
-		nextPass.click();
+		EmailHomepage emailHomepage = signInPage.clickNextPass(driver);
 		// 7. verify Inbox
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("Inbox")));
 		Assert.assertTrue("Sign in successfully", driver.findElement(By.partialLinkText("Inbox")).isDisplayed());
 		// Click Compose
-		WebElement compose = driver.findElement(By.xpath(".//*[@id=':if']/div/div"));
-		compose.click();
+		emailHomepage.createEmail(driver);
 		// Fill in recipent
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("textarea[name='to']")));
-		WebElement toText = driver.findElement(By.cssSelector("textarea[name='to']"));
-		toText.clear();
-		toText.sendKeys("ngatran283@gmail.com");
+		emailHomepage.inputReceiver(driver, "ngatran283@gmail.com");
 		// Fill in subject
-		WebElement subject = driver.findElement(By.cssSelector("input[name='subjectbox']"));
-		subject.click();
-		subject.clear();
-		subject.sendKeys("Demo Email");
+		emailHomepage.inputSubject(driver, "Demo Email");
 		// Fill in email body
-		WebElement body = driver.findElement(By.cssSelector("div[class='Am Al editable LW-avf']"));
-		body.clear();
-		body.sendKeys("Hello tester! good morning");
+		emailHomepage.inputEmailBody(driver, "Hello tester! good morning");
 		// Click Send
-		WebElement sendBttn = driver.findElement(By.cssSelector("div[class='T-I J-J5-Ji aoO T-I-atl L3']"));
-		sendBttn.click();
-		// Click Inbox again
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Inbox (806)")));
-		WebElement inbox = driver.findElement(By.partialLinkText("Inbox"));
-		inbox.click();
+		emailHomepage.sendEmail(driver);
+		// Click Inbox
+		emailHomepage.clickInbox(driver);
 		// Click email
-		WebElement newEmail = driver.findElement(By.xpath("//tr[1]//td[@tabindex='-1']"));
-		newEmail.click();
+		emailHomepage.clickNewEmail(driver);
 		// Verify the email subject and email body is correcct
-		WebElement subjectArea = driver.findElement(By.cssSelector("h2[class='hP']"));
-		Assert.assertEquals("subject should be the same", "Demo Email", subjectArea.getText());
-		WebElement bodyText = driver.findElement(By.cssSelector("div[class='a3s aXjCH m15e4250a23bf69d0']>div[dir='ltr']"));
-		Assert.assertEquals("body should be the some", "Hello tester! good morning", bodyText.getText());
-		// 8.Click profile Button
-		WebElement profileBttn = driver.findElement(By.cssSelector("span[class='gb_7a gbii']"));
-		profileBttn.click();
-		// Sign out
-		WebElement signoutBttn = driver.findElement(By.id("gb_71"));
-		signoutBttn.click();
+		emailHomepage.assertTextEquals(driver, "subject should be the same","Demo Email");
+		// 8. Sign Out
+		signInPage = emailHomepage.signOut(driver);
 	}
 
 	@After
