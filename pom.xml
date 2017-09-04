@@ -4,28 +4,53 @@
 	<groupId>web.gmail</groupId>
 	<artifactId>web.gmail</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<build>
-	<testSourceDirectory>src/test/java</testSourceDirectory>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.6.0</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.18</version>
-				<inherited>true</inherited>
+	<profiles>
+		<profile>
+			<id>All</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>2.18</version>
+						<inherited>true</inherited>
+						<configuration>
+							<groups>categories.Critical,
+								categories.Major</groups>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-compiler-plugin</artifactId>
+						<version>3.6.0</version>
+					</plugin>
+				</plugins>
 
-			</plugin>
-		</plugins>
-	</build>
+			</build>
+		</profile>
+		<profile>
+			<id>Critical</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>2.18</version>
+						<inherited>true</inherited>
+						<configuration>
+							<groups>categories.Critical</groups>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-compiler-plugin</artifactId>
+						<version>3.6.0</version>
+					</plugin>
+				</plugins>
 
+			</build>
+		</profile>
+	</profiles>
 	<dependencies>
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
@@ -38,6 +63,6 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
-
 	</dependencies>
+
 </project>

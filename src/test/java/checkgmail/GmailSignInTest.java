@@ -4,10 +4,12 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import Utils.WebUtils;
+import categories.Critical;
+import categories.Major;
 import pageObject.EmailHomepage;
 import pageObject.EmailViewPage;
 import pageObject.SignInPage;
@@ -21,6 +23,7 @@ public class GmailSignInTest {
 		driver = WebUtils.openBrowser();
 	}
 
+	@Category({Critical.class})
 	@Test
 	public void gmailLoginShouldBeSuccessful() {
 		// 1. Go to gmail website
@@ -40,7 +43,7 @@ public class GmailSignInTest {
 		// 8.Click profile Button
 		signInPage = emailHomepage.signOut(driver);
 	}
-
+	@Category({Major.class})
 	@Test
 	public void gmailSendAndReceiveTest() throws InterruptedException {
 		// 1. Go to gmail website
