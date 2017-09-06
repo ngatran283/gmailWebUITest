@@ -9,7 +9,7 @@ public class EmailHomepage {
 
 	public SignInPage signOut(WebDriver driver) {
 		// TODO Auto-generated method stub
-		WebUtils.click(driver, By.cssSelector("span[class='gb_7a gbii']"));
+		WebUtils.click(driver, By.xpath("//div[@aria-label='Account Information']/../div[1]"));
 		// 9. click sign out button
 		WebUtils.click(driver, By.id("gb_71"));
 		return PageFactory.initElements(driver, SignInPage.class);
@@ -17,13 +17,13 @@ public class EmailHomepage {
 
 	public void createEmail(WebDriver driver) {
 		// TODO Auto-generated method stub
-		WebUtils.click(driver, By.xpath(".//*[@id=':if']/div/div"));
-		WebUtils.wait(driver, By.cssSelector("textarea[name='to']"));
+		WebUtils.click(driver, By.xpath("//*[@id=':if']/div/div"));
+		WebUtils.wait(driver, By.xpath("//div/textarea[@name='to']"));
 	}
 
 	public void inputReceiver(WebDriver driver, String recipent) {
 		// TODO Auto-generated method stub
-		WebUtils.sendKeys(driver, By.cssSelector("textarea[name='to']"), recipent);
+		WebUtils.sendKeys(driver, By.xpath("//div/textarea[@name='to']"), recipent);
 	}
 
 	public void inputSubject(WebDriver driver, String subj) {
@@ -33,13 +33,13 @@ public class EmailHomepage {
 
 	public void inputEmailBody(WebDriver driver, String content) {
 		// TODO Auto-generated method stub
-		WebUtils.sendKeys(driver, By.cssSelector("div[class='Am Al editable LW-avf']"), content);
+		WebUtils.sendKeys(driver, By.xpath("//div[contains(@aria-label,'Body')]"), content);
 	}
 
 	public void sendEmail(WebDriver driver) {
 		// TODO Auto-generated method stub
-		WebUtils.click(driver, By.cssSelector("div[class='T-I J-J5-Ji aoO T-I-atl L3']"));
-		WebUtils.wait(driver, By.linkText("Inbox (807)"));
+		WebUtils.click(driver, By.xpath("//div[contains(@aria-label,'Ctrl-Enter')]"));
+		WebUtils.wait(driver, By.linkText("Inbox (812)"));
 	}
 
 	public void clickInbox(WebDriver driver) {
@@ -49,7 +49,7 @@ public class EmailHomepage {
 
 	public EmailViewPage clickNewEmail(WebDriver driver) {
 		// TODO Auto-generated method stub
-		WebUtils.click(driver, By.xpath("//tr[1]//td[@tabindex='-1']"));
+		WebUtils.click(driver, By.xpath("//tr[1]//td[6]"));
 		WebUtils.wait(driver, By.cssSelector("h2[class='hP']"));
 		return PageFactory.initElements(driver, EmailViewPage.class);
 	}

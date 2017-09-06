@@ -29,7 +29,7 @@
 			</build>
 		</profile>
 		<profile>
-			<id>Critical</id>
+			<id>Major</id>
 			<build>
 				<plugins>
 					<plugin>
@@ -38,7 +38,7 @@
 						<version>2.18</version>
 						<inherited>true</inherited>
 						<configuration>
-							<groups>categories.Critical</groups>
+							<groups>categories.Major</groups>
 						</configuration>
 					</plugin>
 					<plugin>

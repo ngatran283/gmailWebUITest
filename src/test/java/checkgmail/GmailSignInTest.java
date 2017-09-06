@@ -23,7 +23,7 @@ public class GmailSignInTest {
 		driver = WebUtils.openBrowser();
 	}
 
-	@Category({Critical.class})
+	@Category({ Critical.class })
 	@Test
 	public void gmailLoginShouldBeSuccessful() {
 		// 1. Go to gmail website
@@ -31,11 +31,11 @@ public class GmailSignInTest {
 		// 2. Click to gmail
 		signInPage.accessGmailPage(driver);
 		// 3. Input user name
-		signInPage.fillInUsername(driver, "ngatran283@gmail.com");
+		signInPage.fillInUsername(driver, "");
 		// 4. Click next
 		signInPage.clickNextUser(driver);
 		// 5. Input password
-		SignInPage.fillInPassword(driver, "goosie283");
+		SignInPage.fillInPassword(driver, "");
 		// 6. Click passwordNext
 		EmailHomepage emailHomepage = signInPage.clickNextPass(driver);
 		// 7. verify Inbox
@@ -43,7 +43,8 @@ public class GmailSignInTest {
 		// 8.Click profile Button
 		signInPage = emailHomepage.signOut(driver);
 	}
-	@Category({Major.class})
+
+	@Category({ Major.class })
 	@Test
 	public void gmailSendAndReceiveTest() throws InterruptedException {
 		// 1. Go to gmail website
@@ -51,11 +52,11 @@ public class GmailSignInTest {
 		// 2. Click to gmail
 		signInPage.accessGmailPage(driver);
 		// 3. Input user name
-		signInPage.fillInUsername(driver, "ngatran283@gmail.com");
+		signInPage.fillInUsername(driver, "");
 		// 4. Click next
 		signInPage.clickNextUser(driver);
 		// 5. Input password
-		SignInPage.fillInPassword(driver, "goosie283");
+		SignInPage.fillInPassword(driver, "");
 		// 6. Click passwordNext
 		EmailHomepage emailHomepage = signInPage.clickNextPass(driver);
 		// 7. verify Inbox
@@ -63,7 +64,7 @@ public class GmailSignInTest {
 		// Click Compose
 		emailHomepage.createEmail(driver);
 		// Fill in recipent
-		emailHomepage.inputReceiver(driver, "ngatran283@gmail.com");
+		emailHomepage.inputReceiver(driver, "");
 		// Fill in subject
 		emailHomepage.inputSubject(driver, "Demo Email");
 		// Fill in email body

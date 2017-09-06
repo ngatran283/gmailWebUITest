@@ -15,7 +15,7 @@ public class SignInPage {
 
 	public static void fillInPassword(WebDriver driver, String pw) {
 		// TODO Auto-generated method stub
-		WebUtils.sendKeys(driver, By.xpath(".//*[@id='password']/div[1]/div/div[1]/input"), pw);
+		WebUtils.sendKeys(driver, By.xpath("//input[@type='password']"), pw);
 	}
 
 	public void accessGmailPage(WebDriver driver) {
@@ -26,13 +26,13 @@ public class SignInPage {
 
 	public void clickNextUser(WebDriver driver) {
 		// TODO Auto-generated method stub
-		WebUtils.click(driver, By.xpath(".//*[@id='identifierNext']/content/span"));
-		WebUtils.wait(driver, By.xpath(".//*[@id='password']/div[1]/div/div[1]/input"));
+		WebUtils.click(driver, By.xpath(".//*[@id='identifierNext']"));
+		WebUtils.wait(driver, By.xpath("//input[@type='password']"));
 	}
 
 	public EmailHomepage clickNextPass(WebDriver driver) {
 		// TODO Auto-generated method stub
-		WebUtils.click(driver, By.xpath(".//*[@id='passwordNext']/content/span"));
+		WebUtils.click(driver, By.id("passwordNext"));
 		WebUtils.wait(driver, By.partialLinkText("Inbox"));
 		return PageFactory.initElements(driver, EmailHomepage.class);
 	}
