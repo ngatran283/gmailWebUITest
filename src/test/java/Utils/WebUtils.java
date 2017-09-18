@@ -7,6 +7,9 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.sikuli.script.FindFailed;
+import org.sikuli.script.Pattern;
+import org.sikuli.script.Screen;
 
 import pageObject.SignInPage;
 
@@ -39,6 +42,11 @@ public class WebUtils {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(by));
 	}
 
+	public static void implicitWait(WebDriver driver) {
+		// TODO Auto-generated method stub
+		WebDriverWait wait = new WebDriverWait(driver, WAIT_TIME_OUT);
+	}
+	
 	public static String getTextElement(WebDriver driver, By by) {
 		// TODO Auto-generated method stub
 		return driver.findElement(by).getText();
@@ -48,6 +56,17 @@ public class WebUtils {
 		System.setProperty("webdriver.gecko.driver", "D:\\software\\selenium-java-3.0.1\\geckodriver.exe");
 		WebDriver driver = new FirefoxDriver();
 		return driver;
+	}
+
+	public static void selectFile(String path) throws FindFailed {
+		// TODO Auto-generated method stub
+		Screen screen = new Screen();
+		Pattern img_loc = new Pattern("C:\\Users\\bubbl\\Desktop\\loc.png");
+		Pattern img_open = new Pattern("C:\\Users\\bubbl\\Desktop\\open.png");
+		screen.wait(img_loc,10);
+		screen.type(img_loc, path);
+		screen.click(img_open);
+		
 	}
 
 }

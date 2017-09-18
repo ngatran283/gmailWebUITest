@@ -3,6 +3,10 @@ package pageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
+import org.sikuli.script.FindFailed;
+import org.sikuli.script.Pattern;
+import org.sikuli.script.Screen;
+
 import Utils.WebUtils;
 
 public class EmailHomepage {
@@ -17,7 +21,7 @@ public class EmailHomepage {
 
 	public void createEmail(WebDriver driver) {
 		// TODO Auto-generated method stub
-		WebUtils.click(driver, By.xpath("//*[@id=':if']/div/div"));
+		WebUtils.click(driver, By.xpath("//div[@jscontroller='DUNnfe']/div/div/div[1]"));
 		WebUtils.wait(driver, By.xpath("//div/textarea[@name='to']"));
 	}
 
@@ -39,7 +43,7 @@ public class EmailHomepage {
 	public void sendEmail(WebDriver driver) {
 		// TODO Auto-generated method stub
 		WebUtils.click(driver, By.xpath("//div[contains(@aria-label,'Ctrl-Enter')]"));
-		WebUtils.wait(driver, By.linkText("Inbox (812)"));
+		WebUtils.wait(driver, By.linkText("Inbox (1)"));
 	}
 
 	public void clickInbox(WebDriver driver) {
@@ -57,6 +61,18 @@ public class EmailHomepage {
 	public boolean isElementExist(WebDriver driver) {
 		// TODO Auto-generated method stub
 		return driver.findElement(By.partialLinkText("Inbox")).isDisplayed();
+	}
+
+	public void attachFile(WebDriver driver){
+		// TODO Auto-generated method stub
+		WebUtils.click(driver, By.xpath("//div[contains(@aria-label,'Attach')]/div/div"));
+		WebUtils.implicitWait(driver);
+		try {
+			WebUtils.selectFile("C:\\Users\\bubbl\\Desktop\\mvn.png");
+		} catch (FindFailed e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

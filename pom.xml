@@ -50,6 +50,29 @@
 
 			</build>
 		</profile>
+		
+		<profile>
+			<id>Minor</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>2.18</version>
+						<inherited>true</inherited>
+						<configuration>
+							<groups>categories.Minor</groups>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-compiler-plugin</artifactId>
+						<version>3.6.0</version>
+					</plugin>
+				</plugins>
+
+			</build>
+		</profile>
 	</profiles>
 	<dependencies>
 		<dependency>
@@ -63,7 +86,16 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.web.gmail</groupId>
+			<artifactId>sikulixapi</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>C:/Users/bubbl/.m2/repository/local-maven-repo/sikulixapi.jar</systemPath>
+		</dependency>
+
 	</dependencies>
+
 
 	<reporting>
 		<plugins>
