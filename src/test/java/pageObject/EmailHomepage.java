@@ -84,8 +84,24 @@ public class EmailHomepage {
 	public void clickDraft(WebDriver driver) {
 		// TODO Auto-generated method stub
 		WebUtils.click(driver, By.partialLinkText("Drafts"));
-		WebUtils.wait(driver, By.xpath("//tr[1]//td[6]"));
+		WebUtils.wait(driver, By.xpath("//tr[1]/td[6]"));
 		
+	}
+
+	public void clickEmailCheckBox(WebDriver driver) {
+		// TODO Auto-generated method stub
+		WebUtils.click(driver, By.xpath("//div[@role='tabpanel']/div/div/table/tbody/tr/td/div[@dir='ltr'][@role='checkbox']"));
+		WebUtils.wait(driver, By.xpath("//div[@aria-label='Delete']"));	
+	}
+
+	public void deleteEmail(WebDriver driver) {
+		// TODO Auto-generated method stub
+		WebUtils.click(driver, By.xpath("//div[@aria-label='Delete']/div"));
+		WebUtils.wait(driver, By.id("link_undo"));
+	}
+	
+	public String getMessage(WebDriver driver) {
+		return WebUtils.getTextElement(driver, By.xpath("//span[@id='link_undo']/../span[1]"));
 	}
 
 }

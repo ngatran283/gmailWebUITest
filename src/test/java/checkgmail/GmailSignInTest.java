@@ -123,7 +123,7 @@ public class GmailSignInTest {
 		signInPage = emailHomepage.signOut(driver);
 	}
 
-	@Category({ Minor.class })
+	@Category({ Major.class })
 	@Test
 	public void saveDraftEmailAutomatically() throws InterruptedException {
 		// 1. Go to gmail website
@@ -162,6 +162,34 @@ public class GmailSignInTest {
 
 	}
 
+	@Category({ Minor.class })
+	@Test
+	public void deleteEmail() throws InterruptedException {
+		// 1. Go to gmail website
+		SignInPage signInPage = WebUtils.gotoSignInPage(driver);
+		// 2. Click to gmail
+		signInPage.accessGmailPage(driver);
+		// 3. Input user name
+		signInPage.fillInUsername(driver, "selenium655@gmail.com");
+		// 4. Click next
+		signInPage.clickNextUser(driver);
+		// 5. Input password
+		SignInPage.fillInPassword(driver, "nga123456789");
+		// 6. Click passwordNext
+		EmailHomepage emailHomepage = signInPage.clickNextPass(driver);
+		// 7. verify Inbox
+		Assert.assertTrue("Sign in successfully", driver.findElement(By.partialLinkText("Inbox")).isDisplayed());
+		// Click Email checkbox
+		emailHomepage.clickEmailCheckBox(driver);
+		// delete email
+		emailHomepage.deleteEmail(driver);
+		Assert.assertTrue("Delete successfully!", driver.findElement(By.linkText("Learn more")).isDisplayed());
+		String actual = emailHomepage.getMessage(driver);
+		Assert.assertEquals("success", "The conversation has been moved to the Trash.", actual);
+		signInPage = emailHomepage.signOut(driver);
+
+
+	}
 	@After
 	public void cleanUpEn() {
 		driver.quit();
