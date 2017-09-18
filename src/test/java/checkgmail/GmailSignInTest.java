@@ -83,7 +83,7 @@ public class GmailSignInTest {
 		signInPage = emailHomepage.signOut(driver);
 	}
 
-	@Category({ Minor.class })
+	@Category({ Major.class })
 	@Test
 	public void gmailSendAttachedFileAndReceiveTest() throws InterruptedException {
 		// 1. Go to gmail website
@@ -121,6 +121,45 @@ public class GmailSignInTest {
 		Assert.assertEquals("Succeed!", "Demo Email", actualSubject);
 		// 8. Sign Out
 		signInPage = emailHomepage.signOut(driver);
+	}
+
+	@Category({ Minor.class })
+	@Test
+	public void saveDraftEmailAutomatically() throws InterruptedException {
+		// 1. Go to gmail website
+		SignInPage signInPage = WebUtils.gotoSignInPage(driver);
+		// 2. Click to gmail
+		signInPage.accessGmailPage(driver);
+		// 3. Input user name
+		signInPage.fillInUsername(driver, "selenium655@gmail.com");
+		// 4. Click next
+		signInPage.clickNextUser(driver);
+		// 5. Input password
+		SignInPage.fillInPassword(driver, "nga123456789");
+		// 6. Click passwordNext
+		EmailHomepage emailHomepage = signInPage.clickNextPass(driver);
+		// 7. verify Inbox
+		Assert.assertTrue("Sign in successfully", driver.findElement(By.partialLinkText("Inbox")).isDisplayed());
+		// Click Compose
+		emailHomepage.createEmail(driver);
+		// Fill in recipent
+		emailHomepage.inputReceiver(driver, "selenium655@gmail.com");
+		// Fill in subject
+		emailHomepage.inputSubject(driver, "Demo Email");
+		// Fill in email body
+		emailHomepage.inputEmailBody(driver, "Hello tester! good morning");
+		// Close email
+		emailHomepage.clickCloseEmail(driver);
+		// Click Draft
+		emailHomepage.clickDraft(driver);
+		// Click email
+		EmailViewPage emailViewPage = emailHomepage.clickNewEmail(driver);
+		// Verify
+		String actualSubject = emailViewPage.getEmailText(driver);
+		Assert.assertEquals("Succeed!", "Demo Email", actualSubject);
+		// 8. Sign Out
+		signInPage = emailHomepage.signOut(driver);
+
 	}
 
 	@After

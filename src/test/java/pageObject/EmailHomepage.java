@@ -75,4 +75,17 @@ public class EmailHomepage {
 		}
 	}
 
+	public void clickCloseEmail(WebDriver driver) {
+		// TODO Auto-generated method stub
+		WebUtils.click(driver, By.xpath("//td/img[@alt='Close']"));
+		WebUtils.wait(driver, By.linkText("Drafts (5)"));
+	}
+
+	public void clickDraft(WebDriver driver) {
+		// TODO Auto-generated method stub
+		WebUtils.click(driver, By.partialLinkText("Drafts"));
+		WebUtils.wait(driver, By.xpath("//tr[1]//td[6]"));
+		
+	}
+
 }
